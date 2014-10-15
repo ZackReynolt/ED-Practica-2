@@ -6,7 +6,6 @@
                    projectFiles="true">
       <itemPath>Iterator.h</itemPath>
       <itemPath>LinkedList.h</itemPath>
-      <itemPath>Node.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -43,8 +42,6 @@
       </item>
       <item path="LinkedList.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Node.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -71,8 +68,6 @@
       <item path="Iterator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="LinkedList.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Node.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -8,22 +8,20 @@
 #ifndef ITERATOR_H
 #define	ITERATOR_H
 
-template<class T>
+using namespace std;
 
+template<class T>
 class Iterator {
     Node<T> *node;
     friend class LinkedList;
     
 public:
-
-    Iterator(Node<T> *aNode) : node(aNode) {}
-
-    bool end() {return node == 0;}
-
-    void next() {node = node->next;}
-
-    T &data() {return node->data;}
+    Iterator    (Node<T> *aNode) : node(aNode) {}
+    ~Iterator   ();
     
+    bool end    () { return node == 0;  }
+    void next   () { node = node->next; }
+    T &data     () { return node->data; }
 };
 
 #endif	/* ITERATOR_H */
