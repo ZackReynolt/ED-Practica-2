@@ -84,7 +84,7 @@ void LinkedList<T>::insertEnd (T &data){
 template<class T>
 void LinkedList<T>::insert(Iterator<T>& i, T& data){
     Node<T> *previous = 0;
-    Node<T> *p = i.node;
+    Node<T> *p = i;
     
     if (head != tail) {
         previous = head;
@@ -92,7 +92,7 @@ void LinkedList<T>::insert(Iterator<T>& i, T& data){
             previous = previous->next;
     }
     
-    Node<T> *newNode = new Node(data,p);
+    Node<T> *newNode = new Node<T>(data,p);
     
     previous->next = newNode;
     
@@ -136,7 +136,7 @@ void LinkedList<T>::eraseLast(){
 template<class T>
 void LinkedList<T>::erase(Iterator<T>& i){
     Node<T> *previous = 0;
-    Node<T> *p = i.node;
+    Node<T> *p = i;
     
     if (head != tail) {
         previous = head;
