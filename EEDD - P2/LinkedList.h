@@ -24,6 +24,7 @@ public:
 template<class T>
 class LinkedList {
     Node<T> *head, *tail;
+    int _length;
 public:
     LinkedList  () : head(0), tail(0) {}
     LinkedList  (const LinkedList &orig);
@@ -42,6 +43,7 @@ public:
 };
 
 template<class T>
+<<<<<<< dca07ee387dac93eb2214b10753866b7b88e3b8b
 void LinkedList<T>::insertBegin(T &data){
     Node<T> *newNode;
     newNode = new Node<T>(data, head);
@@ -51,6 +53,26 @@ void LinkedList<T>::insertBegin(T &data){
         tail = newNode;
     
     head = newNode;
+=======
+LinkedList<T>::LinkedList(const LinkedList& orig) {
+    if (head) {
+        Node *aux;
+        for (int i = 0; i < _length; ++i) {
+            aux = head->next;
+            delete head;
+            head = aux;
+        }
+        
+        _length = orig._length;
+        head = new Node(orig.head, orig.head->next);
+        for (int i = 0; i < orig._length; ++i) {
+            
+        }
+        
+    } else {
+        
+    }
+>>>>>>> af79c80d45ff3e5428531377abc080cb62449103
 }
 
 #endif	/* LINKEDLIST_H */
