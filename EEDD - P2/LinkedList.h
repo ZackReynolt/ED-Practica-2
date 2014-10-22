@@ -103,6 +103,49 @@ void LinkedList<T>::insert(Iterator<T>& i, T& data){
 }
 
 template<class T>
+void LinkedList<T>::eraseFirst(){
+    Node<T> *erased = head;
+    
+    head = head->next;
+    
+    delete erased;
+    
+    //When the last node is deleted
+    if (head == 0)
+        tail = 0;
+}
+
+template<class T>
+void LinkedList<T>::eraseLast(){
+    Node<T> *previous = 0;
+    if (head != tail) {
+        previous = head;
+        while (previous->next != tail)
+            previous = previous->next;
+    }
+    
+    delete tail;
+    
+    tail = previous;
+    if (previous != 0)
+        previous->next = 0;
+    else
+        head = 0;
+}
+
+template<class T>
+void LinkedList<T>::erase(Iterator<T>& i){
+    Node<T> *previous = 0;
+    Node<T> *p = i.node;
+    
+    if (head != tail) {
+        previous = head;
+        while (previous->next != p)
+            previous = previous->next;
+    }
+}
+
+template<class T>
 LinkedList<T>::LinkedList(const LinkedList& orig) {
     if (head) {
         Node *aux;
