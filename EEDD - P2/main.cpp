@@ -16,6 +16,17 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
+    LinkedList<int> prueba;
+    int n = 1;
+    
+    prueba.insertBegin(n);
+    
+    Iterator<int> i = prueba.iterator();    
+    
+    while (!i.end()) {
+        cout << i.data() << endl;
+        i.next();
+    }
     
     
     /*

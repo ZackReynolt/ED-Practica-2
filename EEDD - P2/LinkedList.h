@@ -26,7 +26,7 @@ class Iterator {
     
 public:
     Iterator    (Node<T> *aNode) : node(aNode) {}
-    ~Iterator   ();    
+    ~Iterator   () {};    
     
     bool end    () { return node == 0;  }
     void next   () { node = node->next; }
@@ -53,6 +53,7 @@ public:
     void erase  (Iterator<T> &i);
     T& first    ();
     T& last     ();
+    int getLength() const;
 };
 
 template<class T>
@@ -165,6 +166,11 @@ LinkedList<T>::LinkedList(const LinkedList& orig) {
     } else {
         
     }
+}
+
+template<class T>
+int LinkedList<T>::getLength() const {
+    return _length;
 }
 
 
