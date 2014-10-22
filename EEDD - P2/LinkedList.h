@@ -8,7 +8,19 @@
 #ifndef LINKEDLIST_H
 #define	LINKEDLIST_H
 
-#include "Iterator.h"
+
+template<class T>
+class Iterator {
+    Node<T> *node;
+    
+public:
+    Iterator    (Node<T> *aNode) : node(aNode) {}
+    ~Iterator   ();
+    
+    bool end    () { return node == 0;  }
+    void next   () { node = node->next; }
+    T &data     () { return node->data; }
+};
 
 template<class U>
 class Node {
@@ -28,7 +40,7 @@ class LinkedList {
 public:
     LinkedList  () : head(0), tail(0) {}
     LinkedList  (const LinkedList &orig);
-    ~LinkedLIst ();
+    ~LinkedList ();
     LinkedList& operator= (const LinkedList &orig);
     
     Iterator<T> iterator() { return Iterator<T> (head); }
@@ -43,17 +55,54 @@ public:
 };
 
 template<class T>
-<<<<<<< dca07ee387dac93eb2214b10753866b7b88e3b8b
 void LinkedList<T>::insertBegin(T &data){
     Node<T> *newNode;
     newNode = new Node<T>(data, head);
     
-    //When the Linked list is empty, the queue pointing to the node
+    //When the Linked list is empty, the tail is pointing to the node
     if (tail == 0)
         tail = newNode;
     
     head = newNode;
-=======
+}
+
+template<class T>
+void LinkedList<T>::insertEnd (T &data){
+    Node<T> *newNode;
+    newNode = new Node<T>(data, 0);
+    
+    if (tail != 0)
+        tail->next = newNode;
+    
+    //When the Linked list is empty, the header is  pointing to the node
+    if (head == 0)
+        head = newNode;
+
+    tail = newNode;
+}
+
+template<class T>
+void LinkedList<T>::insert(Iterator<T>& i, T& data){
+    Node<T> *previous = 0;
+    Node<T> *p = i.node;
+    
+    if (head != tail) {
+        previous = head;
+        while (previous->next != p)
+            previous = previous->next;
+    }
+    
+    Node<T> *newNode = new Node(data,p);
+    
+    previous->next = newNode;
+    
+    if (head == 0) {
+        head = tail = newNode;
+    }
+
+}
+
+template<class T>
 LinkedList<T>::LinkedList(const LinkedList& orig) {
     if (head) {
         Node *aux;
@@ -72,7 +121,6 @@ LinkedList<T>::LinkedList(const LinkedList& orig) {
     } else {
         
     }
->>>>>>> af79c80d45ff3e5428531377abc080cb62449103
 }
 
 #endif	/* LINKEDLIST_H */
