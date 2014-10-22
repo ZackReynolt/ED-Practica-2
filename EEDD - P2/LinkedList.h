@@ -31,6 +31,7 @@ public:
     bool end    () { return node == 0;  }
     void next   () { node = node->next; }
     T &data     () { return node->data; }
+    Node<T>* getNode () { return node; } 
 };
 
 template<class T>
@@ -84,7 +85,7 @@ void LinkedList<T>::insertEnd (T &data){
 template<class T>
 void LinkedList<T>::insert(Iterator<T>& i, T& data){
     Node<T> *previous = 0;
-    Node<T> *p = i;
+    Node<T> *p = i.getNode();
     
     if (head != tail) {
         previous = head;
@@ -136,7 +137,7 @@ void LinkedList<T>::eraseLast(){
 template<class T>
 void LinkedList<T>::erase(Iterator<T>& i){
     Node<T> *previous = 0;
-    Node<T> *p = i;
+    Node<T> *p = i.getNode();
     
     if (head != tail) {
         previous = head;
@@ -165,6 +166,8 @@ LinkedList<T>::LinkedList(const LinkedList& orig) {
         
     }
 }
+
+
 
 #endif	/* LINKEDLIST_H */
 
