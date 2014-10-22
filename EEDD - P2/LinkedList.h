@@ -8,29 +8,29 @@
 #ifndef LINKEDLIST_H
 #define	LINKEDLIST_H
 
+template<class T>
+class Node {
+public:
+    T data;
+    Node *next;
+
+    Node(T &aData, Node *aNext = 0) :
+    data(aData), next(aNext) {
+    }
+};
 
 template<class T>
 class Iterator {
+    //friend class LinkedList;
     Node<T> *node;
     
 public:
     Iterator    (Node<T> *aNode) : node(aNode) {}
-    ~Iterator   ();
+    ~Iterator   ();    
     
     bool end    () { return node == 0;  }
     void next   () { node = node->next; }
     T &data     () { return node->data; }
-};
-
-template<class U>
-class Node {
-public:
-    U data;
-    Node *next;
-
-    Node(U &aData, Node *aNext = 0) :
-    data(aData), next(aNext) {
-    }
 };
 
 template<class T>
@@ -40,7 +40,7 @@ class LinkedList {
 public:
     LinkedList  () : head(0), tail(0) {}
     LinkedList  (const LinkedList &orig);
-    ~LinkedList ();
+    ~LinkedList () {};
     LinkedList& operator= (const LinkedList &orig);
     
     Iterator<T> iterator() { return Iterator<T> (head); }
@@ -148,7 +148,7 @@ void LinkedList<T>::erase(Iterator<T>& i){
 template<class T>
 LinkedList<T>::LinkedList(const LinkedList& orig) {
     if (head) {
-        Node *aux;
+        Node<T> *aux;
         for (int i = 0; i < _length; ++i) {
             aux = head->next;
             delete head;
@@ -156,7 +156,7 @@ LinkedList<T>::LinkedList(const LinkedList& orig) {
         }
         
         _length = orig._length;
-        head = new Node(orig.head, orig.head->next);
+        head = new Node<T> (orig.head, orig.head->next);
         for (int i = 0; i < orig._length; ++i) {
             
         }

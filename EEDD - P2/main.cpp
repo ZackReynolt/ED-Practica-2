@@ -9,7 +9,6 @@
 #include <iostream>
 
 #include "LinkedList.h"
-#include "Iterator.h"
 
 using namespace std;
 
