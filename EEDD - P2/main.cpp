@@ -8,12 +8,18 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "LinkedList.h"
+#include "Iterator.h"
+
 using namespace std;
 
 /*
  * 
  */
 int main(int argc, char** argv) {
+    
+    
+    /*
     //Exercise 1
     int option;         // Selected option in menu
     
@@ -55,6 +61,9 @@ int main(int argc, char** argv) {
                 break;
         }
     }
+    */
+    
+   
     return 0;
 }
 

@@ -8,6 +8,8 @@
 #ifndef LINKEDLIST_H
 #define	LINKEDLIST_H
 
+#include "Iterator.h"
+
 template<class U>
 class Node {
 public:
@@ -38,6 +40,18 @@ public:
     T& first    ();
     T& last     ();
 };
+
+template<class T>
+void LinkedList<T>::insertBegin(T &data){
+    Node<T> *newNode;
+    newNode = new Node<T>(data, head);
+    
+    //When the Linked list is empty, the queue pointing to the node
+    if (tail == 0)
+        tail = newNode;
+    
+    head = newNode;
+}
 
 #endif	/* LINKEDLIST_H */
 
