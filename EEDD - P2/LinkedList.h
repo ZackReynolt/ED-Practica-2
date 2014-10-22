@@ -11,11 +11,11 @@
 template<class T>
 class Node {
 public:
-    T data;
-    Node *next;
+    T       data;
+    Node    *next;
 
-    Node(T &aData, Node *aNext = 0) :
-    data(aData), next(aNext) {
+    Node    (T &aData, Node *aNext = 0) :
+    data    (aData), next(aNext) {
     }
 };
 
@@ -25,13 +25,13 @@ class Iterator {
     Node<T> *node;
     
 public:
-    Iterator    (Node<T> *aNode) : node(aNode) {}
-    ~Iterator   ();    
+    Iterator            (Node<T> *aNode) : node(aNode) {}
+    ~Iterator           () {};    
     
-    bool end    () { return node == 0;  }
-    void next   () { node = node->next; }
-    T &data     () { return node->data; }
-    Node<T>* getNode () { return node; } 
+    bool end            () { return node == 0;  }
+    void next           () { node = node->next; }
+    T &data             () { return node->data; }
+    Node<T>* getNode    () { return node; } 
 };
 
 template<class T>
@@ -39,20 +39,21 @@ class LinkedList {
     Node<T> *head, *tail;
     int _length;
 public:
-    LinkedList  () : head(0), tail(0) {}
-    LinkedList  (const LinkedList &orig);
-    ~LinkedList () {};
-    LinkedList& operator= (const LinkedList &orig);
+    LinkedList              () : head(0), tail(0) {}
+    LinkedList              (const LinkedList &orig);
+    ~LinkedList             ();
+    LinkedList& operator=   (const LinkedList &orig);
     
-    Iterator<T> iterator() { return Iterator<T> (head); }
-    void insertBegin    (T &data);
-    void insertEnd      (T &data);
-    void insert (Iterator<T> &i, T &data);
-    void eraseFirst ();
-    void eraseLast  ();
-    void erase  (Iterator<T> &i);
-    T& first    ();
-    T& last     ();
+    Iterator<T> iterator    () { return Iterator<T> (head); }
+    void insertBegin        (T &data);
+    void insertEnd          (T &data);
+    void insert             (Iterator<T> &i, T &data);
+    void eraseFirst         ();
+    void eraseLast          ();
+    void erase              (Iterator<T> &i);
+    T& first                ();
+    T& last                 ();
+    int getLength           () { return _length; }
 };
 
 template<class T>
@@ -148,25 +149,66 @@ void LinkedList<T>::erase(Iterator<T>& i){
 
 template<class T>
 LinkedList<T>::LinkedList(const LinkedList& orig) {
-    if (head) {
-        Node<T> *aux;
+    Node<T> *p, *aux;
+    if (head != 0) {
+        p = head;
         for (int i = 0; i < _length; ++i) {
-            aux = head->next;
-            delete head;
-            head = aux;
+            aux = p->next;
+            delete p;
+            p = aux;
+        }
+    }
+    
+    if (orig.head != 0) {
+        Iterator<T> i = orig.iterator();
+        head = p = new Node<T>  (i.data(), 0);
+
+        i.next();
+        while (!i.end()) {
+            aux = new Node<T>   (i.data(), 0);
+            p->next = aux;
+            p = aux;
+            i.next();
         }
         
         _length = orig._length;
-        head = new Node<T> (orig.head, orig.head->next);
-        for (int i = 0; i < orig._length; ++i) {
-            
-        }
-        
-    } else {
-        
+        tail = p;
     }
 }
 
+template<class T>
+LinkedList<T>& LinkedList<T>::operator= (const LinkedList& orig) {
+    Node<T> *p, *aux;
+    if (head != 0) {
+        p = head;
+        for (int i = 0; i < _length; ++i) {
+            aux = p->next;
+            delete p;
+            p = aux;
+        }
+        
+        p = orig.head;
+        aux = new Node<T> (p->data, 0);
+        while (p->next) {
+            this->insertEnd(p->data);
+            p = p->next;
+        }
+    }
+}
+
+template<class T>
+LinkedList<T>::~LinkedList() {
+    Node<T> *p, *aux;
+    if (head != 0) {
+        p = head;
+        for (int i = 0; i < _length; ++i) {
+            aux = p->next;
+            delete p;
+            p = aux;
+        }
+        _length = 0;
+    }
+}
 
 
 #endif	/* LINKEDLIST_H */
