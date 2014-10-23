@@ -91,7 +91,7 @@
 91|Suspicious Minds|Elvis Presley
 92|Blitzkrieg Bop|Ramones
 93|I Still Haven't Found What I'm Looking For|U2
-94|Good Golly|Miss Molly|Little Richard
+94|Good Golly Miss Molly|Little Richard
 95|Blue Suede Shoes|Carl Perkins
 96|Great Balls of Fire|Jerry Lee Lewis
 97|Roll Over Beethoven|Chuck Berry
@@ -117,8 +117,8 @@
 117|Take Me to the River |Al Green
 118|Shout (Parts 1 and 2)|The Isley Brothers
 119|Go Your Own Way|Fleetwood Mac
-120|I Want You Back,The Jackson 5
-121|Stand By Me|Ben E|King
+120|I Want You Back|The Jackson 5
+121|Stand By Me|Ben E King
 122|House of the Rising Sun|The Animals
 123|It's a Man's Man's Man's World|James Brown
 124|Jumpin' Jack Flash|The Rolling Stones
@@ -180,7 +180,7 @@
 180|Hey Ya!|Outkast
 181|Green Onions|Booker T and the MG's
 182|Save the Last Dance for Me|The Drifters
-183|The Thrill Is Gone|B.B|King
+183|The Thrill Is Gone|B.B.King
 184|Please Please Me|The Beatles
 185|Desolation Row|Bob Dylan
 186|I Never Loved a Man (The Way I Love You)|Aretha Franklin
@@ -244,7 +244,7 @@
 244|Gimme Some Lovin'|The Spencer Davis Group
 245|The Night They Drove Old Dixie Down|The Band
 246|(Your Love Keeps Lifting Me) Higher and Higher|Jackie Wilson
-247|Hot Fun in the Summertime,Sly and the Family Stone
+247|Hot Fun in the Summertime|Sly and the Family Stone
 248|Rappers Delight|The Sugarhill Gang
 249|Chain of Fools|Aretha Franklin
 250|Paranoid|Black Sabbath
@@ -326,7 +326,7 @@
 326|Get Up (I Feel Like Being a) Sex Machine|James Brown
 327|For Your Precious Love|Jerry Butler and the Impressions
 328|The End|The Doors
-329|That's the Way of the World|Earth|Wind and Fire
+329|That's the Way of the World|Earth, Wind and Fire
 330|We Will Rock You|Queen
 331|I Can't Make You Love Me|Bonnie Raitt
 332|Subterranean Homesick Blues|Bob Dylan
@@ -343,7 +343,7 @@
 343|Jim Dandy|Lavern Baker
 344|Piece of My Heart|Big Brother and the Holding Company
 345|La Bamba|Ritchie Valens
-346|California Love|Dr|Dre and 2Pac
+346|California Love|Dr.Dre and 2Pac
 347|Candle in the Wind|Elton John
 348|That Lady (Part 1 and 2)|The Isley Brothers
 349|Spanish Harlem|Ben E King
@@ -373,7 +373,7 @@
 373|Wonderful World|Sam Cooke
 374|Brown Eyed Handsome Man|Chuck Berry
 375|Another Brick in the Wall Part 2|Pink Floyd
-376|Fake Plastic Trees,Radiohead
+376|Fake Plastic Trees|Radiohead
 377|Hit the Road Jack|Ray Charles
 378|Pride (In The Name of Love)|U2
 379|Radio Free Europe|R.E.M.
@@ -403,7 +403,7 @@
 403|C'mon Everybody|Eddie Cochran
 404|Visions of Johanna|Bob Dylan
 405|We've Only Just Begun|The Carpenters
-406|I Believe I Can Fly|R|Kelly
+406|I Believe I Can Fly|R.Kelly
 407|In Bloom|Nirvana
 408|Sweet Emotion|Aerosmith
 409|Crossroads|Cream
