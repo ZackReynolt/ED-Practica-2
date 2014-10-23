@@ -17,6 +17,12 @@ using namespace std;
 
 void ListSongCharge(LinkedList<Song> &lSong);
 
+void addReq (LinkedList<Request> &lRequest);
+
+void eraReq (LinkedList<Request> &lRequest);
+
+void searchCode (LinkedList<Song> &lSong);
+
 /*
  * 
  */
@@ -29,23 +35,22 @@ int main(int argc, char** argv) {
     
     //Test
     Iterator<Song> i = lSong.iterator();    
-    
+    /*
     while (!i.end()) {
         cout << i.data().GetCode() << endl; //Si esto no se muestra así, no tengo ni idea
         i.next();
     }
+    */
     
-    
-    /*
     //Exercise 1
     int option;         // Selected option in menu
     
     //======//
     // MENU //
     //======//
+    cout << "\nWelcome to Radionaut!" << endl;
+    cout << "You can request your favourite song here. \n" << endl;
     while (option != 5) {
-        cout << "\nWelcome to Radionaut!" << endl;
-        cout << "You can request your favourite song here. \n" << endl;
         cout << "Options:" << endl;
         cout << "1. Add request." << endl;
         cout << "2. Remove request." << endl;
@@ -65,7 +70,10 @@ int main(int argc, char** argv) {
         
         switch (option) {
             case 1:
-                cout << "\nAdd or search song:" << endl;
+                cout << "\nAdd or search song." << endl;
+                cout << "Type C to introduce the code, A for artist and T for "
+                        "Song's title:" << endl;
+                searchCode(lSong);
                 break;
             case 2: 
                 cout << "\nRemove request:" << endl;
@@ -78,7 +86,6 @@ int main(int argc, char** argv) {
                 break;
         }
     }
-    */
     
    
     return 0;
@@ -106,5 +113,39 @@ void ListSongCharge(LinkedList<Song> &lSong) {
     } catch (std::exception &e) {
         cout << "The file could not be open";
     }
+}
+
+void searchCode (LinkedList<Song> &lSong) {
+    Iterator<Song> iterator = lSong.iterator();
+    string option,option2;
+    
+    cin >> option;
+    
+    while (option != "A" && option != "T") {
+        cin.clear();
+        cin.ignore(100, '\n');  //discard 100 characters from the input stream.
+        cout << "\nPlease, introduce 'A' for Artist or 'T' for Title: ";
+        cin >> option;
+    }
+    
+    cout << "\nSearching: " << endl;
+    cin >> option2;
+        
+    while (!iterator.end()) {
+        std::size_t found;
+        if (option == "A")
+            found = iterator.data().GetArtist().find(option2);
+        else
+            found = iterator.data().GetTitle().find(option2);
+        
+        if (found!=std::string::npos) {
+            cout << iterator.data().GetCode() << " - " << 
+                    iterator.data().GetArtist() << " - " << 
+                    iterator.data().GetTitle() << endl;
+        }
+        iterator.next();
+    }
+    
+    
 }
 
