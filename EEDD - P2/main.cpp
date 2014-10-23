@@ -7,15 +7,33 @@
 
 #include <cstdlib>
 #include <iostream>
-
+#include <fstream>
+#include <sstream>
 #include "LinkedList.h"
+#include "Song.h"
+#include "Request.h"
 
 using namespace std;
+
+void ListSongCharge(LinkedList<Song> &lSong);
 
 /*
  * 
  */
 int main(int argc, char** argv) {
+    LinkedList<Song> lSong;
+    LinkedList<Request> lRequest;
+        
+    //Fill out Song's Linked list.
+    ListSongCharge(lSong);
+    
+    //Test
+    Iterator<Song> i = lSong.iterator();    
+    
+    while (!i.end()) {
+        cout << i.data() << endl; //Si esto no se muestra así, no tengo ni idea
+        i.next();
+    }
     
     
     /*
@@ -64,5 +82,29 @@ int main(int argc, char** argv) {
     
    
     return 0;
+}
+
+void ListSongCharge(LinkedList<Song> &lSong) {
+    try { 
+        fstream fi("canciones.txt");
+        string line, atribute[3];
+
+        while (!fi.eof()) {
+            getline(fi, line);
+            stringstream lineStream(line);
+
+            int i = 0;
+            while (getline(lineStream, atribute[i], '|')) {
+                i++;
+            };
+
+            int cod = atoi(atribute[0].c_str());
+            Song s(cod, atribute[1], atribute[2]);
+            lSong.insertEnd(s);
+        }
+        fi.close();
+    } catch (std::exception &e) {
+        cout << "The file could not be open";
+    }
 }
 
