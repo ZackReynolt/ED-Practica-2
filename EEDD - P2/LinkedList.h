@@ -169,15 +169,18 @@ void LinkedList<T>::erase(Iterator<T>& i){
     Node<T> *previous = 0;
     Node<T> *p = i.getNode();
     
-    //esto está de puta madre
-    if (head != tail) {
+    if (head != tail){
         previous = head;
         while (previous->next != p)
             previous = previous->next;
-    }
-    previous->next = p->next;
-    delete p;
-    _length--;
+        previous->next = p->next;
+        delete p;
+        _length--;
+    }else if (_length = 1 || p == tail) {
+        eraseLast();
+    } else if (p == head) {
+        eraseFirst();
+    } 
 }
 
 template<class T>
