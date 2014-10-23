@@ -169,6 +169,7 @@ void LinkedList<T>::erase(Iterator<T>& i){
     Node<T> *previous = 0;
     Node<T> *p = i.getNode();
     
+    //esto está de puta madre
     if (head != tail) {
         previous = head;
         while (previous->next != p)
