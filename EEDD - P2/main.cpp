@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
     Iterator<Song> i = lSong.iterator();    
     
     while (!i.end()) {
-        cout << i.data() << endl;
+        cout << i.data() << endl; //Si esto no se muestra así, no tengo ni idea
         i.next();
     }
     
