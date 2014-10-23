@@ -21,7 +21,7 @@ void addReq (LinkedList<Request> &lRequest);
 
 void eraReq (LinkedList<Request> &lRequest);
 
-void searchCode (LinkedList<Song> &lSong);
+void searchCode (LinkedList<Song> &lSong, LinkedList<Request> &lRequest, string option);
 
 /*
  * 
@@ -33,14 +33,9 @@ int main(int argc, char** argv) {
     //Fill out Song's Linked list.
     ListSongCharge(lSong);
     
-    //Test
-    Iterator<Song> i = lSong.iterator();    
-    /*
-    while (!i.end()) {
-        cout << i.data().GetCode() << endl; //Si esto no se muestra así, no tengo ni idea
-        i.next();
-    }
-    */
+    //Iterators
+    Iterator<Song> i = lSong.iterator(); 
+    Iterator<Request> ri = lRequest.iterator();
     
     //Exercise 1
     int option;         // Selected option in menu
@@ -51,6 +46,7 @@ int main(int argc, char** argv) {
     cout << "\nWelcome to Radionaut!" << endl;
     cout << "You can request your favourite song here. \n" << endl;
     while (option != 5) {
+        
         cout << "Options:" << endl;
         cout << "1. Add request." << endl;
         cout << "2. Remove request." << endl;
@@ -69,20 +65,49 @@ int main(int argc, char** argv) {
         }
         
         switch (option) {
-            case 1:
+            case 1: {
                 cout << "\nAdd or search song." << endl;
                 cout << "Type C to introduce the code, A for artist and T for "
                         "Song's title:" << endl;
-                searchCode(lSong);
+                string type;
+    
+                cin >> type;
+    
+                while (type != "A" && type != "T" && type != "C") {
+                    cin.clear();
+                    cin.ignore(100, '\n');  //discard 100 characters from the input stream.
+                    cout << "\nPlease, introduce 'A' for Artist or 'T' for Title: ";
+                    cin >> type;
+                }
+                
+                if (type == "C") {
+                    addReq(lRequest);  
+                } else {
+                    searchCode(lSong, lRequest, type);
+                } 
                 break;
+            }
             case 2: 
-                cout << "\nRemove request:" << endl;
+                eraReq(lRequest);
                 break;
             case 3: 
                 cout << "Available songs:" << endl;
+                i = lSong.iterator();
+                while (!i.end()) {
+                    cout << i.data().GetCode() << " - " << i.data().GetArtist() <<
+                            " - " << i.data().GetTitle() << endl; 
+                    i.next();
+                }
                 break;
             case 4: 
                 cout << "Request's list:" << endl;
+                ri = lRequest.iterator();
+                while (!ri.end()) {
+                    cout << ri.data().getCod() << " - " << ri.data().getNRequest()
+                            << endl; 
+                    ri.next();
+                }
+                
                 break;
         }
     }
@@ -115,18 +140,9 @@ void ListSongCharge(LinkedList<Song> &lSong) {
     }
 }
 
-void searchCode (LinkedList<Song> &lSong) {
+void searchCode (LinkedList<Song> &lSong, LinkedList<Request> &lRequest, string option) {
     Iterator<Song> iterator = lSong.iterator();
-    string option,option2;
-    
-    cin >> option;
-    
-    while (option != "A" && option != "T") {
-        cin.clear();
-        cin.ignore(100, '\n');  //discard 100 characters from the input stream.
-        cout << "\nPlease, introduce 'A' for Artist or 'T' for Title: ";
-        cin >> option;
-    }
+    string option2;
     
     cout << "\nSearching: " << endl;
     cin >> option2;
@@ -146,6 +162,49 @@ void searchCode (LinkedList<Song> &lSong) {
         iterator.next();
     }
     
+    addReq(lRequest);
+    
     
 }
+
+void addReq (LinkedList<Request> &lRequest) {
+    int n;
+    bool added = false;
+    Iterator<Request> si = lRequest.iterator();
+    cout << "\nType the code you want to add: ";
+    
+    cin >> n;
+    Request req(n);
+    
+    if (lRequest.getLength() == 0) {
+        lRequest.insertEnd(req);
+    } else {
+        while (!si.end() && !added) {
+            if (si.data().getCod() == n) {
+                si.data().setNRequest(1);
+                added = true;
+            } else {
+                lRequest.insertEnd(req);
+                added = true;
+            }
+            si.next();
+        }
+    }
+        
+}
+
+void eraReq (LinkedList<Request> &lRequest) {
+    int n;
+    Iterator<Request> ei = lRequest.iterator();
+    cout << "\nType the code you want to remove: ";
+    
+    cin >> n;
+    
+    while (!ei.end()) {
+        if (ei.data().getCod() == n)
+            lRequest.erase(ei);
+        else
+            ei.next();
+    }
+} 
 

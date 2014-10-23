@@ -174,6 +174,8 @@ void LinkedList<T>::erase(Iterator<T>& i){
         while (previous->next != p)
             previous = previous->next;
     }
+    previous->next = p->next;
+    delete p;
     _length--;
 }
 
