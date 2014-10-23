@@ -16,19 +16,17 @@ private:
     int _nRequest;      // Number of requests
     
 public:
-    Request();
-    Request (int code);
-    ~Request() {};
-    void addRequest (int code);
-    void setNRequest(int _nRequest);
-    int getNRequest() const;
-    void setCod(int _cod);
-    int getCod() const;
-    bool operator==(const Request &orig) {
-        if (_cod == orig._cod)
-            return true;
-        return false;
-    }
+    Request             ();
+    Request             (int code);
+    Request             (const Request &orig);
+    ~Request            () {};
+    
+    void addRequest     (int code);
+    void setNRequest    (int _nRequest);
+    int getNRequest     () const;
+    void setCod         (int _cod);
+    int getCod          () const;
+    bool operator==     (const Request &orig);
 };
 
 Request::Request() {
@@ -39,6 +37,11 @@ Request::Request() {
 Request::Request(int code) {
     _cod = code;
     _nRequest = 1;
+}
+
+Request::Request(const Request& orig) {
+    _cod = orig._cod;
+    _nRequest = orig._nRequest;
 }
 
 void Request::setNRequest(int _nRequest) {
@@ -60,7 +63,12 @@ int Request::getCod() const {
 void Request::addRequest(int code) {
     _nRequest++;
 }
-        
+
+bool Request::operator ==(const Request& orig) {
+    if (_cod == orig._cod)
+        return true;
+    return false;
+}
 
 #endif	/* REQUEST_H */
 
