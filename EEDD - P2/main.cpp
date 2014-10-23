@@ -25,6 +25,9 @@ void eraReq (LinkedList<Request> &lRequest, Vdinamic<Request> &vRequest);
 void searchCode (LinkedList<Song> &lSong, LinkedList<Request> &lRequest, string option);
 
 void addVReq (Vdinamic<Request> &vRequest, Iterator<Request> &ei);
+
+bool canAddRequest (LinkedList<Request> &lRequest, int n);
+
 /*
  * 
  */
@@ -83,8 +86,8 @@ int main(int argc, char** argv) {
                     cin >> type;
                 }
                 
-                if (type == "C") {
-                    addReq(lRequest);  
+                if (type == "C") { 
+                    addReq(lRequest);
                 } else {
                     searchCode(lSong, lRequest, type);
                 } 
@@ -114,7 +117,6 @@ int main(int argc, char** argv) {
                 break;
         }
     }
-    
    
     return 0;
 }
@@ -179,20 +181,25 @@ void addReq (LinkedList<Request> &lRequest) {
     cin >> n;
     Request req(n);
     
-    if (lRequest.getLength() == 0) {
-        lRequest.insertEnd(req);
-    } else {
-        while (!si.end() && !added) {
-            if (si.data().getCod() == n) {
-                si.data().setNRequest(1);
-                added = true;
-            } else {
-                lRequest.insertEnd(req);
-                added = true;
+    if (canAddRequest(lRequest,n))
+        cout << "\nThe song is already in the Request's list." << endl;
+    else {
+        if (lRequest.getLength() == 0) {
+            lRequest.insertEnd(req);
+        } else {
+            while (!si.end() && !added) {
+                if (si.data().getCod() == n) {
+                    si.data().setNRequest(1);
+                    added = true;
+                } else {
+                    lRequest.insertEnd(req);
+                    added = true;
+                }
+                si.next();
             }
-            si.next();
         }
     }
+        
         
 }
 
@@ -232,8 +239,22 @@ void addVReq (Vdinamic<Request> &vRequest, Iterator<Request> &ei) {
     if (p != -1) {
         vRequest[p].setNRequest(1);
     } else {
-        vRequest.insert(*usrReq,0);
+        vRequest.addFirst(*usrReq);
     }
+}
+
+bool canAddRequest (LinkedList<Request> &lRequest, int n) {
+    bool added = false;
+    Iterator<Request> ci = lRequest.iterator();
+    
+    while (!ci.end() && !added) {
+            if (ci.data().getCod() == n) {
+                added = true;
+            } 
+            ci.next();
+        }
+    
+    return added;
 }
 
 
