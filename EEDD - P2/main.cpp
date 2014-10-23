@@ -12,6 +12,7 @@
 #include "LinkedList.h"
 #include "Song.h"
 #include "Request.h"
+#include "Vdinamic.h"
 
 using namespace std;
 
@@ -19,16 +20,18 @@ void ListSongCharge(LinkedList<Song> &lSong);
 
 void addReq (LinkedList<Request> &lRequest);
 
-void eraReq (LinkedList<Request> &lRequest);
+void eraReq (LinkedList<Request> &lRequest, Vdinamic<Request> &vRequest);
 
 void searchCode (LinkedList<Song> &lSong, LinkedList<Request> &lRequest, string option);
 
+void addVReq (Vdinamic<Request> &vRequest, Iterator<Request> &ei);
 /*
  * 
  */
 int main(int argc, char** argv) {
     LinkedList<Song> lSong;
     LinkedList<Request> lRequest;
+    Vdinamic<Request> vRequest;
         
     //Fill out Song's Linked list.
     ListSongCharge(lSong);
@@ -88,7 +91,7 @@ int main(int argc, char** argv) {
                 break;
             }
             case 2: 
-                eraReq(lRequest);
+                eraReq(lRequest, vRequest);
                 break;
             case 3: 
                 cout << "Available songs:" << endl;
@@ -193,7 +196,7 @@ void addReq (LinkedList<Request> &lRequest) {
         
 }
 
-void eraReq (LinkedList<Request> &lRequest) {
+void eraReq (LinkedList<Request> &lRequest, Vdinamic<Request> &vRequest) {
     int n;
     Iterator<Request> ei = lRequest.iterator();
     cout << "\nType the code you want to remove: ";
@@ -201,10 +204,36 @@ void eraReq (LinkedList<Request> &lRequest) {
     cin >> n;
     
     while (!ei.end()) {
-        if (ei.data().getCod() == n)
+        if (ei.data().getCod() == n) {
+            addVReq(vRequest, ei);
             lRequest.erase(ei);
-        else
+        } else
             ei.next();
     }
 } 
+
+/**
+ * Procedure addReq
+    Adds a new request to the request's vector or increments the number of 
+    times requested when it is already in the vector.  
+
+    @param dinamic vector of requests by reference
+    @return not needed because of the reference
+*/
+void addVReq (Vdinamic<Request> &vRequest, Iterator<Request> &ei) {
+    int p;              // Request code introduced by user / position in Vdinamic
+    Request *usrReq;    // Pointer - Object the user tries to add
+
+    p = 0;
+
+    usrReq = new Request(ei.data());
+    p = vRequest.search(*usrReq);
+
+    if (p != -1) {
+        vRequest[p].setNRequest(1);
+    } else {
+        vRequest.insert(*usrReq,0);
+    }
+}
+
 
