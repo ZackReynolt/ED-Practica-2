@@ -11,12 +11,10 @@
 template<class T>
 class Node {
 public:
-    T       data;
-    Node    *next;
+    T     data;
+    Node *next;
 
-    Node    (T &aData, Node *aNext = 0) :
-    data    (aData), next(aNext) {
-    }
+    Node (T &aData, Node *aNext = 0) : data(aData), next(aNext) {}
 };
 
 template<class T>
@@ -39,7 +37,7 @@ class LinkedList {
     Node<T> *head, *tail;
     int _length;
 public:
-    LinkedList              () : head(0), tail(0) {}
+    LinkedList              () : head(0), tail(0), _length(0) {}
     LinkedList              (const LinkedList &orig);
     ~LinkedList             ();
     LinkedList& operator=   (const LinkedList &orig);
@@ -56,6 +54,11 @@ public:
     int getLength           () { return _length; }
 };
 
+/**
+ * 
+ * @param data  The data to add
+ * @description Insert data at the begin of the list
+ */
 template<class T>
 void LinkedList<T>::insertBegin(T &data){
     Node<T> *newNode;
@@ -66,8 +69,14 @@ void LinkedList<T>::insertBegin(T &data){
         tail = newNode;
     
     head = newNode;
+    _length++;
 }
 
+/**
+ * 
+ * @param data The data to add
+ * @description insert data at the end of the list
+ */
 template<class T>
 void LinkedList<T>::insertEnd (T &data){
     Node<T> *newNode;
@@ -81,8 +90,15 @@ void LinkedList<T>::insertEnd (T &data){
         head = newNode;
 
     tail = newNode;
+    _length++;
 }
 
+/**
+ * 
+ * @param i     The iterator
+ * @param data  The data to add 
+ * @description insert data at the position pointer by the iterator
+ */
 template<class T>
 void LinkedList<T>::insert(Iterator<T>& i, T& data){
     Node<T> *previous = 0;
@@ -101,9 +117,12 @@ void LinkedList<T>::insert(Iterator<T>& i, T& data){
     if (head == 0) {
         head = tail = newNode;
     }
-
+    _length++;
 }
 
+/**
+ * @description erase the first data of the list
+ */
 template<class T>
 void LinkedList<T>::eraseFirst(){
     Node<T> *erased = head;
@@ -115,8 +134,12 @@ void LinkedList<T>::eraseFirst(){
     //When the last node is deleted
     if (head == 0)
         tail = 0;
+    _length--;
 }
 
+/**
+ * @description erase the last data of the list
+ */
 template<class T>
 void LinkedList<T>::eraseLast(){
     Node<T> *previous = 0;
@@ -133,8 +156,14 @@ void LinkedList<T>::eraseLast(){
         previous->next = 0;
     else
         head = 0;
+    _length--;
 }
 
+/**
+ * 
+ * @param i The iterator
+ * @description erase the data pointer by the iterator
+ */
 template<class T>
 void LinkedList<T>::erase(Iterator<T>& i){
     Node<T> *previous = 0;
@@ -145,6 +174,7 @@ void LinkedList<T>::erase(Iterator<T>& i){
         while (previous->next != p)
             previous = previous->next;
     }
+    _length--;
 }
 
 template<class T>
