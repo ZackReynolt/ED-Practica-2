@@ -18,15 +18,16 @@ using namespace std;
 
 void ListSongCharge(LinkedList<Song> &lSong);
 
-void addReq (LinkedList<Request> &lRequest);
+void addReq (LinkedList<Request> &lRequest, Vdinamic<Request> &vRequest);
 
 void eraReq (LinkedList<Request> &lRequest, Vdinamic<Request> &vRequest);
 
-void searchCode (LinkedList<Song> &lSong, LinkedList<Request> &lRequest, string option);
+void searchCode (LinkedList<Song> &lSong, LinkedList<Request> &lRequest, 
+        string option, Vdinamic<Request> &vRequest);
 
 void addVReq (Vdinamic<Request> &vRequest, Iterator<Request> &ei);
 
-bool canAddRequest (LinkedList<Request> &lRequest, int n);
+bool canAddRequest (LinkedList<Request> &lRequest, int n, Vdinamic<Request> &vRequest);
 
 /*
  * 
@@ -87,9 +88,9 @@ int main(int argc, char** argv) {
                 }
                 
                 if (type == "C") { 
-                    addReq(lRequest);
+                    addReq(lRequest, vRequest);
                 } else {
-                    searchCode(lSong, lRequest, type);
+                    searchCode(lSong, lRequest, type, vRequest);
                 } 
                 break;
             }
@@ -145,7 +146,8 @@ void ListSongCharge(LinkedList<Song> &lSong) {
     }
 }
 
-void searchCode (LinkedList<Song> &lSong, LinkedList<Request> &lRequest, string option) {
+void searchCode (LinkedList<Song> &lSong, LinkedList<Request> &lRequest, 
+        string option, Vdinamic<Request> &vRequest) {
     Iterator<Song> iterator = lSong.iterator();
     string option2;
     
@@ -167,12 +169,12 @@ void searchCode (LinkedList<Song> &lSong, LinkedList<Request> &lRequest, string 
         iterator.next();
     }
     
-    addReq(lRequest);
+    addReq(lRequest, vRequest);
     
     
 }
 
-void addReq (LinkedList<Request> &lRequest) {
+void addReq (LinkedList<Request> &lRequest, Vdinamic<Request> &vRequest) {
     int n;
     bool added = false;
     Iterator<Request> si = lRequest.iterator();
@@ -181,8 +183,9 @@ void addReq (LinkedList<Request> &lRequest) {
     cin >> n;
     Request req(n);
     
-    if (canAddRequest(lRequest,n))
-        cout << "\nThe song is already in the Request's list." << endl;
+    if (canAddRequest(lRequest, n, vRequest))
+        cout << "\nThe song is already in the Request's list "
+                "or it is one of the last 100 played songs." << endl;
     else {
         if (lRequest.getLength() == 0) {
             lRequest.insertEnd(req);
@@ -243,16 +246,24 @@ void addVReq (Vdinamic<Request> &vRequest, Iterator<Request> &ei) {
     }
 }
 
-bool canAddRequest (LinkedList<Request> &lRequest, int n) {
+bool canAddRequest (LinkedList<Request> &lRequest, int n, Vdinamic<Request> &vRequest) {
     bool added = false;
     Iterator<Request> ci = lRequest.iterator();
     
+    //Checking if the Request is already in the Request's list
     while (!ci.end() && !added) {
-            if (ci.data().getCod() == n) {
+        if (ci.data().getCod() == n)
+            added = true;
+        ci.next();
+    }
+    
+    //Checking if the Request is one of the last 100 played
+    if (!added && vRequest.lenght() != 0){
+        for (int j = 0; j < 100; ++j) {
+            if (vRequest[j].getCod() == n)
                 added = true;
-            } 
-            ci.next();
         }
+    }
     
     return added;
 }
