@@ -208,15 +208,17 @@ void addReq (LinkedList<Request> &lRequest, Vdinamic<Request> &vRequest) {
 
 void eraReq (LinkedList<Request> &lRequest, Vdinamic<Request> &vRequest) {
     int n;
+    bool erased = false;
     Iterator<Request> ei = lRequest.iterator();
     cout << "\nType the code you want to remove: ";
     
     cin >> n;
     
-    while (!ei.end()) {
+    while (!ei.end() && !erased) {
         if (ei.data().getCod() == n) {
             addVReq(vRequest, ei);
             lRequest.erase(ei);
+            erased = true;
         } else
             ei.next();
     }
@@ -259,9 +261,11 @@ bool canAddRequest (LinkedList<Request> &lRequest, int n, Vdinamic<Request> &vRe
     
     //Checking if the Request is one of the last 100 played
     if (!added && vRequest.lenght() != 0){
-        for (int j = 0; j < 100; ++j) {
+        int j = 0;
+        while (j < vRequest.lenght() && j < 100) {
             if (vRequest[j].getCod() == n)
                 added = true;
+            j++;
         }
     }
     

@@ -117,6 +117,7 @@ void LinkedList<T>::insert(Iterator<T>& i, T& data){
     if (head == 0) {
         head = tail = newNode;
     }
+    i = newNode;
     _length++;
 }
 
